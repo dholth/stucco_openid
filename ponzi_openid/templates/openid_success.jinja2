@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Success!?</title>
+</head>
+<body>
+<h1>{{ status }}</h1>
+<p>Identified as {{ display_id }}</p>
+<p>REMOTE_USER = {{ request['REMOTE_USER'] }}</p>
+{% if sreg_resp %}
+<h2>Registration Data</h2>
+<table>
+  <thead><tr><th>Field</th><th>Value</th></tr></thead>
+  <tbody>
+    {% for k, v in sreg_data %}
+    <tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if pape_resp %}
+<h2>Effective Auth Policies</h2>
+<ul>
+  {% if not pape_resp.auth_policies %}
+  <li>(none)</li>
+  {% endif %}
+  {% for policy_uri in pape_resp.auth_policies: %}
+  <li><tt>{{ policy_uri }}</tt></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<a href="{{ request.application_url }}">{{ request.application_url }}</a>
+</body>
+</html>

@@ -1,0 +1,6 @@
+0.0
+---
+
+-  Initial version.
+-  Completes the OpenID handshake.
+-  Has not been used in an application yet.
