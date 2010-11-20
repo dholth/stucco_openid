@@ -1,3 +1,7 @@
+0.1
+---
+-  Switch to openid-realselector
+
 0.0
 ---
 

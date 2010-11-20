@@ -15,7 +15,7 @@ requires = [
 ]
 
 setup(name='ponzi_openid',
-      version='0.0',
+      version='0.1',
       description='ponzi_openid',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[

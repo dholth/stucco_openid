@@ -9,6 +9,7 @@ import logging
 log = logging.getLogger(__name__)
 
 class OpenID(object):
+    """Handle the OpenID authentication flow."""
 
     def __init__(self, context, request):
         self.context=context
@@ -29,7 +30,7 @@ class OpenID(object):
     def redirect(self):
         """Redirect to OpenID provider or POST+JavaScript pseudo-redirect."""
         c = self.get_consumer(self.request)
-        auth_request = c.begin(user_url=self.request.POST['openid_identifier'])
+        auth_request = c.begin(user_url=self.request.POST['url'])
         return_to = self.base_url.rstrip('/')+'/success'
         # is this the place to set ax/sreg extensions?
         if auth_request.shouldSendRedirect():
