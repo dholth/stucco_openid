@@ -11,6 +11,8 @@ log = logging.getLogger(__name__)
 class OpenID(object):
     """Handle the OpenID authentication flow."""
 
+    Consumer=consumer.Consumer
+
     def __init__(self, context, request):
         self.context=context
         self.request=request
@@ -21,8 +23,8 @@ class OpenID(object):
 
     def get_consumer(self, request=None):
         """Create OpenID consumer."""
-        store = self.request.context.store
-        return consumer.Consumer(request.session, store)
+        store = self.context.store
+        return OpenID.Consumer(request.session, store)
 
     def index(self):
         return {}
@@ -47,12 +49,16 @@ class OpenID(object):
     def success(self):
         log.debug(self.request.url)
         c = self.get_consumer(self.request)
-        # or request.params? (GET and POST)? can I ask for POST?
+        
         log.debug("Session: %r" % self.request.session)
+        
+        # why just GET?
         info = c.complete(self.request.GET,
                 self.request.application_url + self.request.path_info)
+
         log.debug("Session: %r" % self.request.session)
         log.debug(info.status)
+
         if info.status == consumer.SUCCESS:
             # not unicode:
             log.debug('Display identifier: ' + 
@@ -68,7 +74,9 @@ class OpenID(object):
 
             # need yet another step 'offer local account registration'
             headers = remember(self.request, info.getDisplayIdentifier())
+
             log.debug("Remember: %r" % (headers,))
+
             self.request.response_headerlist = headers
             self.request.session.save()
             return {'status':info.status,
@@ -78,3 +86,4 @@ class OpenID(object):
         else:
             self.request.session.save()
             return HTTPFound(location=self.base_url)
+
