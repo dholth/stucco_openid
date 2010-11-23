@@ -7,12 +7,6 @@ import logging
 log = logging.getLogger()
 
 class ViewTests(unittest.TestCase):
-    def setUp(self):
-        self.config = Configurator()
-        self.config.begin()
-
-    def tearDown(self):
-        self.config.end()
 
     def test_index(self):
         from ponzi_openid.views import OpenID
@@ -61,3 +55,10 @@ class ViewTests(unittest.TestCase):
         DummyBegin.redirect = False
         rc = cut.redirect()
         assert 'openid_message' in rc, 'No openid_message for renderer'
+
+
+class ModelTests(unittest.TestCase):
+    def test_get_root(self):
+        from ponzi_openid import models
+        request = None
+        assert models.get_root(request) is not None
