@@ -1,4 +1,6 @@
 import unittest
+import sqlalchemy.orm
+import sqlalchemy
 
 from pyramid.configuration import Configurator
 from pyramid import testing
@@ -62,3 +64,23 @@ class ModelTests(unittest.TestCase):
         from ponzi_openid import models
         request = None
         assert models.get_root(request) is not None
+
+    def test_association(self):
+        from ponzi_openid import tables
+        import ponzi_auth.tables
+
+        engine = sqlalchemy.create_engine('sqlite:///:memory:', echo=True)
+        Session = sqlalchemy.orm.sessionmaker(bind=engine)
+        session = Session()
+
+        ponzi_auth.tables.initialize(session)
+        tables.initialize(session)
+
+        user = ponzi_auth.tables.User(username=u'')
+        openid = tables.OpenID(openid='openid.example.org')
+        user.openids.append(openid)
+
+        session.add(user)
+        session.commit()
+
+
