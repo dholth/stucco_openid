@@ -11,12 +11,13 @@ requires = [
 'pyramid_beaker',
 'pyramid_jinja2',
 'python-openid',
+'stucco_auth',
 'WebError',
 ]
 
-setup(name='ponzi_openid',
-      version='0.1',
-      description='ponzi_openid',
+setup(name='stucco_openid',
+      version='0.2',
+      description='stucco_openid',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -27,17 +28,17 @@ setup(name='ponzi_openid',
         ],
       author='Daniel Holth',
       author_email='dholth@fastmail.fm',
-      url='http://bitbucket.org/dholth/ponzi_openid',
+      url='http://bitbucket.org/dholth/stucco_openid',
       keywords='web pyramid pylons openid',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
       tests_require=requires,
-      test_suite="ponzi_openid",
+      test_suite="stucco_openid",
       entry_points = """\
       [paste.app_factory]
-      main = ponzi_openid:main
+      main = stucco_openid:main
       """,
       paster_plugins=['pyramid'],
       )

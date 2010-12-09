@@ -1,5 +1,11 @@
+0.2
+---
+
+- Rename to stucco_openid
+
 0.1
 ---
+
 -  Switch to openid-realselector
 
 0.0

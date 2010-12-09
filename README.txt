@@ -1,5 +1,5 @@
-ponzi_openid
-------------
+stucco_openid
+-------------
 
 OpenID authentication written with the Pyramid web framework.
 

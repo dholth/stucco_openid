@@ -1,13 +1,13 @@
 from pyramid.configuration import Configurator
-from ponzi_openid.models import get_root, OpenID
+from stucco_openid.models import get_root, OpenID
 
 def configure(config, template_extension="jinja2"):
-    """Add ponzi_openid views, resources to `config`.
+    """Add stucco_openid views, resources to `config`.
     
     template_extension: Change this to use another templating
     language. Only Jinja2 implementation included."""
 
-    config.add_static_view('static', 'ponzi_openid:static')
+    config.add_static_view('static', 'stucco_openid:static')
 
     config.add_view(
             view=".views.OpenID",
@@ -51,9 +51,9 @@ def main(global_config, **settings):
     config.set_session_factory(session_factory)
 
     # configure OpenID-specific storage
-    import ponzi_openid.models
+    import stucco_openid.models
     from openid.store import filestore
-    ponzi_openid.models.root.store = \
+    stucco_openid.models.root.store = \
         filestore.FileOpenIDStore(settings['openid.store_file_path'])
 
     config.end()
